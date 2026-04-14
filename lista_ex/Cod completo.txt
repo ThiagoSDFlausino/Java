@@ -1,0 +1,368 @@
+-- ATIVIDADE 1
+
+Classe Usuário
+public class Usuario {
+    public String nome;
+    public String matricula;
+
+    public Usuario() {
+        }
+
+    public Usuario(String nome, String matricula) {
+        this.nome = nome;
+        this.matricula = matricula;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+}
+
+Classe Empréstimo
+import java.util.ArrayList;
+
+public class Emprestimo {
+    private Usuario usuario;
+    private ArrayList<Livro> livros;
+
+    public Emprestimo(Usuario usuario) {
+        this.usuario = usuario;
+        this.livros = new ArrayList<>();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public ArrayList<Livro> getLivros() {
+        return livros;
+    }
+
+    public setLivros(ArrayList<Livro> livros) {
+        this.livros = livros;
+    }
+
+    public void adicionarLivro(Livro livro) {
+        if (livro.isDisponivel() == false) {
+            System.out.println("O livro não está disponível para empréstimo.");
+        } else {
+            livos.setDisponivel(false);
+            this.livros.add(livro);
+            System.out.println("Livro: " + livro.getTitulo() + " emprestado para o usuário: " + this.getUsuario().getNome());
+        }
+    }
+
+    public void finalizarEmprestimo() {
+        for (int i=0; i < this.livros.size(); i++) {
+            this.livros.get(i).setDisponivel(true);
+            this.livros.remove(this.livros.get(i));
+        }
+            
+    }
+
+}
+
+Classe Livro
+public class Livro {
+    public String titulo;
+    public String autor;
+    public boolean disponivel;
+
+    public Livro() {
+    }
+
+    public Livro(String titulo, String autor, boolean disponivel) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.disponivel = disponivel;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+}
+
+MAIN
+public class main {
+    public static void main(String[] args) {
+        // Criando usuários
+        Usuario oUsuario1 = new Usuario("João", "12345");
+        Usuario oUsuario2 = new Usuario("Maria", "67890");
+
+        // Criando livros
+        Livro oLivro1 = new Livro("O Senhor dos Anéis", "J.R.R. Tolkien", true);
+        Livro oLivro2 = new Livro("1984", "George Orwell", true);
+        Livro oLivro3 = new Livro("A Revolução dos Bichos", "George Orwell", true);
+
+        // Criando empréstimos
+        Emprestimo oEmprestimo1 = new Emprestimo();
+        oEmprestimo1.setUsuario(oUsuario1);
+        oEmprestimo1.adicionarLivro(oLivro1);
+        oEmprestimo1.adicionarLivro(oLivro2);
+
+        Emprestimo oEmprestimo2 = new Emprestimo();
+        oEmprestimo2.setUsuario(oUsuario2);
+        oEmprestimo2.adicionarLivro(oLivro3);
+
+        oEmprestimo2.finalizarEmprestimo();
+    }
+}
+
+
+-- ATIVIDADE 2
+
+Classe Desenvolvedor
+package lista_ex.ex2;
+
+import java.util.ArrayList;
+
+public class Desenvolvedor extends Funcionario {
+    private String linguagem_principal;
+
+    public Desenvolvedor(String linguagem_principal, String nome, double salario, ArrayList<Projeto> projetos) {
+        super(nome, salario, projetos);
+        this.linguagem_principal = linguagem_principal;
+    }
+
+    public String getLinguagem_principal() {
+        return linguagem_principal;
+    }
+
+    public void setLinguagem_principal(String linguagem_principal) {
+        this.linguagem_principal = linguagem_principal;
+    }
+
+    @Override
+    public double calculaBonus() {
+        return this.salario * 0.1;
+    }
+}
+
+
+Classe Funcionário
+package lista_ex.ex2;
+
+import java.util.ArrayList;
+
+abstract public class Funcionario {
+    protected String nome;
+    protected double salario;
+    protected ArrayList<Projeto> projetos;
+
+    public Funcionario(String nome, double salario, ArrayList<Projeto> projetos) {
+        this.nome = nome;
+        this.salario = salario;
+        this.projetos = projetos;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public ArrayList<Projeto> getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(ArrayList<Projeto> projetos) {
+        this.projetos = projetos;
+    }
+
+    abstract public double calculaBonus();
+}
+
+Classe Gerente
+package lista_ex.ex2;
+
+import java.util.ArrayList;
+
+public class Gerente_Teste extends Funcionario {
+    private String departamento;
+
+    public Gerente_Teste(String departamento, String nome, double salario, ArrayList<Projeto> projetos) {
+        super(nome, salario, projetos);
+        this.departamento = departamento;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    @Override
+    public double calculaBonus() {
+        return this.salario * 0.2;
+    }
+}
+
+Classe Projeto
+package lista_ex.ex2;
+
+import java.util.ArrayList;
+
+public class Projeto {
+    private String nome;
+    private ArrayList<Tarefa> tarefas;
+
+    public Projeto() {
+    }
+
+    public Projeto(String nome, ArrayList<Tarefa> tarefas) {
+        this.nome = nome;
+        this.tarefas = tarefas;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public ArrayList<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(ArrayList<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+
+    public void adicionarTarefa(Tarefa tarefa) {
+        this.tarefas.add(tarefa);
+    }
+}
+
+Classe Tarefa
+package lista_ex.ex2;
+
+public class Tarefa {
+    private String descricao;
+    private boolean concluida;
+
+    public Tarefa(){
+    }
+
+    public Tarefa(String descricao, boolean concluida) {
+        this.descricao = descricao;
+        this.concluida = concluida;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public boolean isConcluida() {
+        return concluida;
+    }
+
+    public void setConcluida(boolean concluida) {
+        this.concluida = concluida;
+    }
+
+}
+
+MAIN
+package lista_ex.ex2;
+
+import java.util.ArrayList;
+
+public class Rev {
+
+    public static void main(String[] args) {
+        Tarefa oTarefa1 = new Tarefa("Implementar login", false);
+        Tarefa oTarefa2 = new Tarefa("Criar banco de dados", true);
+        Tarefa oTarefa3 = new Tarefa("Implementar Cadastro", false);
+
+        ArrayList<Tarefa> tarefas = new ArrayList<>();
+        tarefas.add(oTarefa1);
+        tarefas.add(oTarefa2);
+        tarefas.add(oTarefa3);
+
+        Projeto oProjeto1 = new Projeto("Sistema de Gerenciamento", tarefas);
+        ArrayList<Projeto> projetos = new ArrayList<>();
+        projetos.add(oProjeto1);
+
+
+        Funcionario oFuncionario = new Funcionario("João", 3000, projetos);
+
+        System.out.println("Nome: " + oFuncionario.getNome());
+        System.out.println("Salário: " + oFuncionario.getSalario());
+
+        if (oFuncionario instanceof Desenvolvedor) {
+            System.out.println("===== DESENVOLVEDOR =====");
+            System.out.println("Linguagem principal: " + ((Desenvolvedor) oFuncionario).getLinguagemPrincipal());
+        } else {
+            System.out.println("===== GERENTE =====");
+            System.out.println("Departamento: " + ((Gerente) oFuncionario).getDepartamento());
+        }
+
+        System.out.println("===== PROJETOS ====");
+        for (int i = 0; i < oFuncionario.getProjetos().size(); i++) {
+            System.out.println("\t Nome: " + oFuncionario.getProjetos().get(i).getNome());
+
+            System.out.println("\t ===== TAREFA ====");
+            for (int j = 0; j < oFuncionario.getProjetos().get(i).getTarefas().size(); j++) {
+                System.out.println("\t\t Descrição: " + oFuncionario.getProjetos().get(i).getTarefas().get(j).getDescricao());
+                String concluida = ((oFuncionario.getProjetos().get(i).getTarefas().get(j).isConcluida() == true) ? "Sim" : "Não");
+                System.out.println("\t\t Concluída: " + concluida);
+            }
+        }
+
+        System.out.println("Bônus: " + oFuncionario.calculaBonus());
+    }
+}
